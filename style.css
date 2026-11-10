@@ -1,3 +1,4 @@
+/* Reset y Estilos Base */
 * {
     box-sizing: border-box;
     margin: 0;
@@ -30,6 +31,7 @@ body {
     pointer-events: none;
 }
 
+/* Layout Principal */
 .main-layout {
     display: flex;
     align-items: center;
@@ -39,6 +41,7 @@ body {
     max-width: 1500px;
 }
 
+/* Sidebar Controles laterales */
 .sidebar {
     display: flex;
     flex-direction: column;
@@ -97,6 +100,7 @@ body {
     box-shadow: 0 0 15px rgba(255, 202, 58, 0.6);
 }
 
+/* Juego Central */
 .game-container {
     display: flex;
     flex-direction: column;
@@ -106,7 +110,7 @@ body {
 
 .total-score-box {
     background: linear-gradient(180deg, #1e3c72 0%, #2a5298 100%);
-    border: 4px solid #00f0ff;
+    border: 4px solid #00d2ff;
     box-shadow: 0 0 20px rgba(0, 240, 255, 0.6);
     border-radius: 12px;
     padding: 4px 40px;
@@ -121,6 +125,7 @@ body {
     text-shadow: 0 0 10px rgba(255, 255, 255, 0.8), 2px 2px 0px #000;
 }
 
+/* Cuadro de la Pregunta visible para el público */
 .question-display-box {
     background: rgba(5, 22, 48, 0.9);
     border: 2px solid #00d2ff;
@@ -138,6 +143,7 @@ body {
     line-height: 1.4;
 }
 
+/* Panel Estilo Programa */
 .board-panel {
     position: relative;
     background: #02122c;
@@ -159,6 +165,7 @@ body {
     letter-spacing: 1px;
 }
 
+/* Estilo de 2 Columnas Paralelas (4 y 4 casilleros) */
 .board-grid {
     display: flex;
     gap: 15px;
@@ -171,6 +178,7 @@ body {
     gap: 10px;
 }
 
+/* Filas Normales */
 .board-row {
     display: flex;
     height: 52px;
@@ -234,6 +242,7 @@ body {
     border-left: 3px solid #0a192f;
 }
 
+/* PANEL DINERO RÁPIDO */
 .fast-money-panel {
     background: linear-gradient(180deg, #052352 0%, #010f26 100%);
 }
@@ -338,6 +347,7 @@ body {
     color: #00f0ff;
 }
 
+/* Cruz / Error */
 .cross-overlay {
     position: absolute;
     top: 0;
@@ -376,6 +386,7 @@ body {
     100% { transform: scale(1); }
 }
 
+/* Botones Inferiores */
 .controls-container {
     display: flex;
     gap: 15px;
@@ -442,4 +453,61 @@ body {
 
 .audio-input-label input {
     display: none;
+}
+
+/* --- ADAPTACIÓN RESPONSIVE PARA CELULARES Y PANTALLAS CHICAS --- */
+@media (max-width: 950px) {
+    .main-layout {
+        flex-direction: column;
+        align-items: center;
+        padding: 10px;
+        gap: 15px;
+    }
+
+    .sidebar {
+        width: 100%;
+        max-width: 100%;
+        max-height: 150px;
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    .sidebar-title {
+        width: 100%;
+    }
+
+    .board-panel,
+    .question-display-box {
+        width: 100%;
+        max-width: 480px;
+        padding: 12px;
+    }
+
+    .board-grid {
+        flex-direction: column;
+        gap: 8px;
+    }
+
+    .board-row {
+        height: 45px;
+    }
+
+    .row-closed {
+        font-size: 1.6rem;
+    }
+
+    .answer-text {
+        font-size: 0.8rem;
+    }
+
+    .answer-points {
+        width: 55px;
+        font-size: 1.2rem;
+    }
+
+    .fast-row {
+        flex-direction: column;
+        gap: 6px;
+    }
 }
