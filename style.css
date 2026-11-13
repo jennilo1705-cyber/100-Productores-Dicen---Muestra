@@ -31,37 +31,124 @@ body {
     pointer-events: none;
 }
 
-/* Layout Principal */
+/* Layout Principal Vertical (3 Niveles) */
 .main-layout {
     display: flex;
+    flex-direction: column;
     align-items: center;
-    gap: 20px;
+    gap: 15px;
     z-index: 10;
-    padding: 20px;
-    max-width: 1500px;
+    padding: 15px;
+    width: 100%;
+    max-width: 1600px;
 }
 
-/* Sidebar Controles laterales */
+/* 1. SECCIÓN SUPERIOR: GRUPOS + SCORE PRINCIPAL */
+.top-bar-layout {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    gap: 20px;
+}
+
+.groups-top-section {
+    display: flex;
+    gap: 12px;
+}
+
+/* Tarjetas independientes de los 4 grupos */
+.group-score-card {
+    background: linear-gradient(180deg, #0f2b48 0%, #08192d 100%);
+    border: 2px solid #00d2ff;
+    border-radius: 12px;
+    padding: 8px 14px;
+    text-align: center;
+    box-shadow: 0 0 15px rgba(0, 210, 255, 0.2);
+    min-width: 140px;
+}
+
+.group-name {
+    display: block;
+    font-size: 0.8rem;
+    font-weight: 900;
+    color: #ffca3a;
+    margin-bottom: 2px;
+}
+
+.group-points {
+    display: block;
+    font-size: 1.6rem;
+    font-weight: 900;
+    color: #ffffff;
+    text-shadow: 0 0 8px rgba(0, 240, 255, 0.6);
+    margin-bottom: 4px;
+}
+
+.btn-add-points {
+    width: 100%;
+    background: linear-gradient(180deg, #10b981 0%, #047857 100%);
+    color: white;
+    border: 1px solid #34d399;
+    padding: 4px 6px;
+    font-size: 0.72rem;
+    font-weight: 800;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.btn-add-points:hover {
+    background: linear-gradient(180deg, #34d399 0%, #10b981 100%);
+    box-shadow: 0 0 8px rgba(52, 211, 153, 0.6);
+}
+
+.total-score-box {
+    background: linear-gradient(180deg, #1e3c72 0%, #2a5298 100%);
+    border: 4px solid #00f0ff;
+    box-shadow: 0 0 20px rgba(0, 240, 255, 0.6);
+    border-radius: 12px;
+    padding: 4px 40px;
+    min-width: 160px;
+    text-align: center;
+}
+
+#total-score {
+    font-size: 2.8rem;
+    font-weight: 900;
+    color: #ffffff;
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.8), 2px 2px 0px #000;
+}
+
+/* 2. SECCIÓN CENTRAL: SIDEBAR IZQ + TABLERO + SIDEBAR DER */
+.center-content-layout {
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    gap: 20px;
+    width: 100%;
+}
+
 .sidebar {
     display: flex;
     flex-direction: column;
     gap: 8px;
-    background: rgba(2, 18, 44, 0.85);
+    background: rgba(2, 18, 44, 0.9);
     border: 3px solid #00d2ff;
-    padding: 14px 10px;
+    padding: 12px 10px;
     border-radius: 16px;
     box-shadow: 0 0 20px rgba(0, 210, 255, 0.2);
-    min-width: 175px;
-    max-height: 90vh;
+    width: 185px;
+    max-height: 80vh;
     overflow-y: auto;
 }
 
 .sidebar-title {
-    font-size: 0.8rem;
+    font-size: 0.75rem;
     font-weight: 900;
     color: #00d2ff;
     text-align: center;
-    margin-bottom: 2px;
+    margin-bottom: 4px;
     letter-spacing: 1px;
 }
 
@@ -70,7 +157,7 @@ body {
     color: white;
     border: 2px solid #1e4976;
     padding: 8px 6px;
-    font-size: 0.8rem;
+    font-size: 0.78rem;
     font-weight: 800;
     border-radius: 8px;
     cursor: pointer;
@@ -95,43 +182,21 @@ body {
     border-color: #ffca3a;
 }
 
-.fast-money-btn:hover {
-    border-color: #ffffff;
-    box-shadow: 0 0 15px rgba(255, 202, 58, 0.6);
-}
-
-/* Juego Central */
 .game-container {
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: 12px;
+    flex: 1;
+    max-width: 900px;
 }
 
-.total-score-box {
-    background: linear-gradient(180deg, #1e3c72 0%, #2a5298 100%);
-    border: 4px solid #00d2ff;
-    box-shadow: 0 0 20px rgba(0, 240, 255, 0.6);
-    border-radius: 12px;
-    padding: 4px 40px;
-    min-width: 150px;
-    text-align: center;
-}
-
-#total-score {
-    font-size: 2.8rem;
-    font-weight: 900;
-    color: #ffffff;
-    text-shadow: 0 0 10px rgba(255, 255, 255, 0.8), 2px 2px 0px #000;
-}
-
-/* Cuadro de la Pregunta visible para el público */
 .question-display-box {
     background: rgba(5, 22, 48, 0.9);
     border: 2px solid #00d2ff;
     border-radius: 12px;
     padding: 10px 20px;
-    width: 880px;
+    width: 100%;
     text-align: center;
     box-shadow: 0 0 15px rgba(0, 210, 255, 0.3);
 }
@@ -143,7 +208,6 @@ body {
     line-height: 1.4;
 }
 
-/* Panel Estilo Programa */
 .board-panel {
     position: relative;
     background: #02122c;
@@ -152,7 +216,7 @@ body {
     border-radius: 24px;
     padding: 20px;
     box-shadow: 0 0 40px rgba(0, 150, 255, 0.4), inset 0 0 30px rgba(0, 0, 0, 0.8);
-    width: 880px;
+    width: 100%;
     min-height: 380px;
 }
 
@@ -165,7 +229,6 @@ body {
     letter-spacing: 1px;
 }
 
-/* Estilo de 2 Columnas Paralelas (4 y 4 casilleros) */
 .board-grid {
     display: flex;
     gap: 15px;
@@ -178,7 +241,6 @@ body {
     gap: 10px;
 }
 
-/* Filas Normales */
 .board-row {
     display: flex;
     height: 52px;
@@ -242,7 +304,6 @@ body {
     border-left: 3px solid #0a192f;
 }
 
-/* PANEL DINERO RÁPIDO */
 .fast-money-panel {
     background: linear-gradient(180deg, #052352 0%, #010f26 100%);
 }
@@ -347,7 +408,6 @@ body {
     color: #00f0ff;
 }
 
-/* Cruz / Error */
 .cross-overlay {
     position: absolute;
     top: 0;
@@ -386,7 +446,6 @@ body {
     100% { transform: scale(1); }
 }
 
-/* Botones Inferiores */
 .controls-container {
     display: flex;
     gap: 15px;
@@ -421,7 +480,6 @@ body {
 
 .btn-reset:hover { background: #2563eb; }
 
-/* Panel de Audios Custom */
 .audio-custom-panel {
     display: flex;
     align-items: center;
@@ -455,33 +513,89 @@ body {
     display: none;
 }
 
-/* --- ADAPTACIÓN RESPONSIVE PARA CELULARES Y PANTALLAS CHICAS --- */
+/* --- ADAPTACIÓN RESPONSIVE COMPLETA (PC, TABLET Y CELULAR) --- */
+@media (max-width: 1150px) {
+    .top-bar-layout {
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 15px;
+    }
+
+    .total-score-box {
+        order: -1;
+        width: 100%;
+        max-width: 220px;
+    }
+
+    .groups-top-section {
+        justify-content: center;
+        flex-wrap: wrap;
+    }
+}
+
 @media (max-width: 950px) {
+    body {
+        align-items: flex-start;
+        padding-top: 10px;
+    }
+
     .main-layout {
+        padding: 10px;
+        gap: 12px;
+    }
+
+    .groups-top-section {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        width: 100%;
+        max-width: 480px;
+        gap: 8px;
+    }
+
+    .group-score-card {
+        min-width: unset;
+        padding: 6px 8px;
+    }
+
+    .group-points {
+        font-size: 1.3rem;
+    }
+
+    .center-content-layout {
         flex-direction: column;
         align-items: center;
-        padding: 10px;
         gap: 15px;
     }
 
     .sidebar {
         width: 100%;
-        max-width: 100%;
-        max-height: 150px;
+        max-width: 480px;
+        max-height: none;
         flex-direction: row;
         flex-wrap: wrap;
         justify-content: center;
+        padding: 10px;
+        gap: 6px;
     }
 
     .sidebar-title {
         width: 100%;
     }
 
+    .nav-btn {
+        padding: 6px 10px;
+        font-size: 0.72rem;
+    }
+
     .board-panel,
     .question-display-box {
         width: 100%;
         max-width: 480px;
-        padding: 12px;
+        padding: 14px;
+    }
+
+    #question-text {
+        font-size: 0.9rem;
     }
 
     .board-grid {
@@ -490,15 +604,16 @@ body {
     }
 
     .board-row {
-        height: 45px;
+        height: 46px;
     }
 
     .row-closed {
-        font-size: 1.6rem;
+        font-size: 1.5rem;
     }
 
     .answer-text {
-        font-size: 0.8rem;
+        font-size: 0.78rem;
+        padding-left: 8px;
     }
 
     .answer-points {
@@ -506,8 +621,22 @@ body {
         font-size: 1.2rem;
     }
 
+    .fast-header-cols {
+        display: none;
+    }
+
     .fast-row {
         flex-direction: column;
         gap: 6px;
+        background: rgba(0, 210, 255, 0.08);
+        padding: 6px;
+        border-radius: 12px;
+    }
+
+    .controls-container,
+    .audio-custom-panel {
+        flex-wrap: wrap;
+        justify-content: center;
+        text-align: center;
     }
 }
