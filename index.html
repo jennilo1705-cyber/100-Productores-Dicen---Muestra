@@ -13,94 +13,133 @@
 
     <div class="main-layout">
 
-        <!-- BARRA LATERAL IZQUIERDA: Dinero Rápido -->
-        <div class="sidebar sidebar-left">
-            <span class="sidebar-title">⚡ DINERO RÁPIDO</span>
-            <button class="nav-btn fast-money-btn" onclick="switchView('fast1')">Dinero Rápido 1</button>
-            <button class="nav-btn fast-money-btn" onclick="switchView('fast2')">Dinero Rápido 2</button>
-        </div>
-
-        <!-- CONTENEDOR CENTRAL: Paneles del Juego -->
-        <div class="game-container">
+        <!-- FILA SUPERIOR: MARCADORES DE LOS 4 GRUPOS + SCORE PRINCIPAL -->
+        <div class="top-bar-layout">
             
-            <!-- MARCADOR TOTAL ARRIBA -->
+            <!-- GRUPOS IZQUIERDA (1 Y 2) -->
+            <div class="groups-top-section">
+                <div class="group-score-card">
+                    <span class="group-name">GRUPO 1</span>
+                    <span class="group-points" id="score-group-1">0</span>
+                    <button class="btn-add-points" onclick="addPointsToGroup(1)">+ Sumar Puntos</button>
+                </div>
+
+                <div class="group-score-card">
+                    <span class="group-name">GRUPO 2</span>
+                    <span class="group-points" id="score-group-2">0</span>
+                    <button class="btn-add-points" onclick="addPointsToGroup(2)">+ Sumar Puntos</button>
+                </div>
+            </div>
+
+            <!-- MARCADOR TOTAL DE LA PREGUNTA ACTUAL (CENTRO) -->
             <div class="total-score-box" id="main-score-box">
                 <span id="total-score">0</span>
             </div>
 
-            <!-- CUADRO DE PREGUNTA VISIBLE EN PANTALLA -->
-            <div class="question-display-box" id="question-display-box">
-                <span id="question-text">Cargando pregunta...</span>
-            </div>
-
-            <!-- PANEL REGULAR (Preguntas de la Muestra) -->
-            <div class="board-panel" id="normal-panel">
-                <div class="board-header-title" id="round-title">RONDA 1</div>
-                
-                <div class="board-grid" id="board-grid"></div>
-
-                <div class="cross-overlay" id="cross-overlay">
-                    <div class="neon-cross-container" id="cross-container"></div>
-                </div>
-            </div>
-
-            <!-- PANEL DINERO RÁPIDO -->
-            <div class="board-panel fast-money-panel" id="fast-money-panel" style="display: none;">
-                <div class="fast-title" id="fast-panel-title">DINERO RÁPIDO</div>
-                
-                <div class="fast-header-cols">
-                    <div class="fast-col-title">PARTICIPANTE 1</div>
-                    <div class="fast-col-title">PARTICIPANTE 2</div>
+            <!-- GRUPOS DERECHA (3 Y 4) -->
+            <div class="groups-top-section">
+                <div class="group-score-card">
+                    <span class="group-name">GRUPO 3</span>
+                    <span class="group-points" id="score-group-3">0</span>
+                    <button class="btn-add-points" onclick="addPointsToGroup(3)">+ Sumar Puntos</button>
                 </div>
 
-                <div class="fast-grid" id="fast-grid"></div>
-
-                <div class="fast-total-row">
-                    <span>TOTAL ACUMULADO:</span>
-                    <span id="fast-total-score">0</span>
+                <div class="group-score-card">
+                    <span class="group-name">GRUPO 4</span>
+                    <span class="group-points" id="score-group-4">0</span>
+                    <button class="btn-add-points" onclick="addPointsToGroup(4)">+ Sumar Puntos</button>
                 </div>
-
-                <div class="cross-overlay" id="fast-cross-overlay">
-                    <div class="neon-cross-container">
-                        <span class="neon-cross">❌</span>
-                    </div>
-                </div>
-            </div>
-
-            <!-- CONTROLES INFERIORES -->
-            <div class="controls-container">
-                <button class="btn-cross" id="btn-cross-trigger">❌ Error (Cruz)</button>
-                <button class="btn-reset" id="btn-reset">🔄 Reiniciar Panel</button>
-            </div>
-
-            <!-- PANEL DE CARGA MANUAL DE AUDIO (RECUPERADO) -->
-            <div class="audio-custom-panel">
-                <span>🔊 Cargar Audios MP3:</span>
-                <label class="audio-input-label">
-                    <span>✅ Correcto MP3</span>
-                    <input type="file" id="input-correct-mp3" accept="audio/*">
-                </label>
-                <label class="audio-input-label">
-                    <span>❌ Error MP3</span>
-                    <input type="file" id="input-wrong-mp3" accept="audio/*">
-                </label>
             </div>
 
         </div>
 
-        <!-- BARRA LATERAL DERECHA: Preguntas 1 a 10 -->
-        <div class="sidebar sidebar-right">
-            <span class="sidebar-title">🎯 PREGUNTAS</span>
-            <button class="nav-btn round-btn active" onclick="switchView('round', 0)">Pregunta 1</button>
-            <button class="nav-btn round-btn" onclick="switchView('round', 1)">Pregunta 2</button>
-            <button class="nav-btn round-btn" onclick="switchView('round', 2)">Pregunta 3</button>
-            <button class="nav-btn round-btn" onclick="switchView('round', 3)">Pregunta 4 (x2)</button>
-            <button class="nav-btn round-btn" onclick="switchView('round', 4)">Pregunta 5 (x3)</button>
-            <button class="nav-btn round-btn" onclick="switchView('round', 5)">Pregunta 6</button>
-            <button class="nav-btn round-btn" onclick="switchView('round', 6)">Pregunta 7</button>
-            <button class="nav-btn round-btn" onclick="switchView('round', 7)">Pregunta 8</button>
-            <button class="nav-btn round-btn" onclick="switchView('round', 8)">Pregunta 9 (x2)</button>
-            <button class="nav-btn round-btn" onclick="switchView('round', 9)">Pregunta 10 (x3)</button>
+        <!-- FILA CENTRAL: SIDEBAR IZQ + TABLERO PRINCIPAL + SIDEBAR DER -->
+        <div class="center-content-layout">
+
+            <!-- BARRA LATERAL IZQUIERDA: Solo Dinero Rápido -->
+            <div class="sidebar sidebar-left">
+                <span class="sidebar-title">⚡ DINERO RÁPIDO</span>
+                <button class="nav-btn fast-money-btn" onclick="switchView('fast1')">Dinero Rápido 1</button>
+                <button class="nav-btn fast-money-btn" onclick="switchView('fast2')">Dinero Rápido 2</button>
+            </div>
+
+            <!-- CONTENEDOR CENTRAL: PANELES DEL JUEGO -->
+            <div class="game-container">
+                
+                <!-- CUADRO DE PREGUNTA VISIBLE EN PANTALLA -->
+                <div class="question-display-box" id="question-display-box">
+                    <span id="question-text">Cargando pregunta...</span>
+                </div>
+
+                <!-- PANEL REGULAR -->
+                <div class="board-panel" id="normal-panel">
+                    <div class="board-header-title" id="round-title">RONDA 1</div>
+                    <div class="board-grid" id="board-grid"></div>
+
+                    <div class="cross-overlay" id="cross-overlay">
+                        <div class="neon-cross-container" id="cross-container"></div>
+                    </div>
+                </div>
+
+                <!-- PANEL DINERO RÁPIDO -->
+                <div class="board-panel fast-money-panel" id="fast-money-panel" style="display: none;">
+                    <div class="fast-title" id="fast-panel-title">DINERO RÁPIDO</div>
+                    
+                    <div class="fast-header-cols">
+                        <div class="fast-col-title">PARTICIPANTE 1</div>
+                        <div class="fast-col-title">PARTICIPANTE 2</div>
+                    </div>
+
+                    <div class="fast-grid" id="fast-grid"></div>
+
+                    <div class="fast-total-row">
+                        <span>TOTAL ACUMULADO:</span>
+                        <span id="fast-total-score">0</span>
+                    </div>
+
+                    <div class="cross-overlay" id="fast-cross-overlay">
+                        <div class="neon-cross-container">
+                            <span class="neon-cross">❌</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- CONTROLES INFERIORES -->
+                <div class="controls-container">
+                    <button class="btn-cross" id="btn-cross-trigger">❌ Error (Cruz)</button>
+                    <button class="btn-reset" id="btn-reset">🔄 Reiniciar Todo</button>
+                </div>
+
+                <!-- PANEL DE CARGA MANUAL DE AUDIO -->
+                <div class="audio-custom-panel">
+                    <span>🔊 Cargar Audios MP3:</span>
+                    <label class="audio-input-label">
+                        <span>✅ Correcto MP3</span>
+                        <input type="file" id="input-correct-mp3" accept="audio/*">
+                    </label>
+                    <label class="audio-input-label">
+                        <span>❌ Error MP3</span>
+                        <input type="file" id="input-wrong-mp3" accept="audio/*">
+                    </label>
+                </div>
+
+            </div>
+
+            <!-- BARRA LATERAL DERECHA: Solo Lista de Preguntas -->
+            <div class="sidebar sidebar-right">
+                <span class="sidebar-title">🎯 PREGUNTAS</span>
+                <button class="nav-btn round-btn active" onclick="switchView('round', 0)">Pregunta 1</button>
+                <button class="nav-btn round-btn" onclick="switchView('round', 1)">Pregunta 2</button>
+                <button class="nav-btn round-btn" onclick="switchView('round', 2)">Pregunta 3</button>
+                <button class="nav-btn round-btn" onclick="switchView('round', 3)">Pregunta 4 (x2)</button>
+                <button class="nav-btn round-btn" onclick="switchView('round', 4)">Pregunta 5 (x3)</button>
+                <button class="nav-btn round-btn" onclick="switchView('round', 5)">Pregunta 6</button>
+                <button class="nav-btn round-btn" onclick="switchView('round', 6)">Pregunta 7</button>
+                <button class="nav-btn round-btn" onclick="switchView('round', 7)">Pregunta 8</button>
+                <button class="nav-btn round-btn" onclick="switchView('round', 8)">Pregunta 9 (x2)</button>
+                <button class="nav-btn round-btn" onclick="switchView('round', 9)">Pregunta 10 (x3)</button>
+            </div>
+
         </div>
 
     </div>
