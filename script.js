@@ -51,7 +51,7 @@ const roundsData = [
     },
     {
         title: "RONDA 1 - PREGUNTA 5 (TRIPLICA X3)",
-        question: "Para cerrar la primera ronda, hablemos de los que os pasa a todos cuando una pelicula es muy emotiva o atrapante... ¿Qué hacés cuando sabes que una pelicula te va a hacer llorar?",
+        question: "Para cerrar la primera ronda, hablemos de los que nos pasa a todos cuando una pelicula es muy emotiva o atrapante... ¿Qué hacés cuando sabes que una pelicula te va a hacer llorar?",
         multiplier: 3,
         answers: [
             { text: "Preparar o agarrar pañuelitos de papel", points: 45 },
@@ -131,7 +131,22 @@ const roundsData = [
     }
 ];
 
-// --- GESTIÓN DE AUDIOS PERSONALIZADOS (MANUALES) ---
+// --- GESTIÓN DE PUNTOS ACUMULADOS DE LOS 4 GRUPOS ---
+let groupScores = { 1: 0, 2: 0, 3: 0, 4: 0 };
+
+function addPointsToGroup(groupNum) {
+    const currentQuestionScore = parseInt(totalScoreEl.textContent) || 0;
+    if (currentQuestionScore > 0) {
+        groupScores[groupNum] += currentQuestionScore;
+        const scoreEl = document.getElementById(`score-group-${groupNum}`);
+        if (scoreEl) {
+            scoreEl.textContent = groupScores[groupNum];
+        }
+        playCorrectSound();
+    }
+}
+
+// --- GESTIÓN DE AUDIOS PERSONALIZADOS ---
 let customCorrectAudio = null;
 let customWrongAudio = null;
 
@@ -142,20 +157,14 @@ document.addEventListener("DOMContentLoaded", () => {
     if (correctInput) {
         correctInput.addEventListener('change', (e) => {
             const file = e.target.files[0];
-            if (file) {
-                customCorrectAudio = new Audio(URL.createObjectURL(file));
-                console.log("Audio correcto cargado correctamente.");
-            }
+            if (file) customCorrectAudio = new Audio(URL.createObjectURL(file));
         });
     }
 
     if (wrongInput) {
         wrongInput.addEventListener('change', (e) => {
             const file = e.target.files[0];
-            if (file) {
-                customWrongAudio = new Audio(URL.createObjectURL(file));
-                console.log("Audio de error cargado correctamente.");
-            }
+            if (file) customWrongAudio = new Audio(URL.createObjectURL(file));
         });
     }
 });
@@ -163,7 +172,7 @@ document.addEventListener("DOMContentLoaded", () => {
 function playCorrectSound() {
     if (customCorrectAudio) {
         customCorrectAudio.currentTime = 0;
-        customCorrectAudio.play().catch(e => console.error("Error reproduciendo MP3 acierto:", e));
+        customCorrectAudio.play().catch(e => console.error(e));
     } else {
         playSynthCorrectSound();
     }
@@ -172,13 +181,12 @@ function playCorrectSound() {
 function playWrongSound() {
     if (customWrongAudio) {
         customWrongAudio.currentTime = 0;
-        customWrongAudio.play().catch(e => console.error("Error reproduciendo MP3 error:", e));
+        customWrongAudio.play().catch(e => console.error(e));
     } else {
         playSynthWrongSound();
     }
 }
 
-// --- SONIDOS SINTÉTICOS DE RESPALDO ---
 let audioCtx = null;
 function getAudioContext() {
     if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
@@ -230,7 +238,6 @@ function playSynthWrongSound() {
     } catch (e) {}
 }
 
-// --- ESTADO GLOBAL Y LÓGICA DEL JUEGO ---
 let currentView = 'round';
 let currentRoundIndex = 0;
 let basePointsSum = 0;
@@ -286,7 +293,6 @@ function switchView(type, roundIdx = 0) {
     }
 }
 
-// Renderizar Ronda Normal
 function renderNormalRound() {
     const roundInfo = roundsData[currentRoundIndex];
     if (roundTitleEl) roundTitleEl.textContent = roundInfo.title;
@@ -458,6 +464,12 @@ if (btnCross) btnCross.addEventListener('click', triggerCross);
 
 if (btnReset) {
     btnReset.addEventListener('click', () => {
+        groupScores = { 1: 0, 2: 0, 3: 0, 4: 0 };
+        for(let g = 1; g <= 4; g++) {
+            const el = document.getElementById(`score-group-${g}`);
+            if(el) el.textContent = 0;
+        }
+
         if (currentView === 'round') {
             roundStrikeCount[currentRoundIndex] = 0;
             renderNormalRound();
